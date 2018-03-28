@@ -3,45 +3,69 @@
 #	return 0
 #}
 
-get_activity_column <- function()
+build_dataset <- function()
 {
-	train_data <- read.table("./train/y_train.txt")
-	test_data  <- read.table("./test/y_test.txt")
+	# convert data in y_train and y_test text files into activity labels
+	# merge data into one column defined as activity_column
+	train_activity_column <- get_activity_column("train")
+	test_activity_column  <- get_activity_column("test")
+	activity_column <- combine(train_activity_column, test_activity_column)
 	
-	train_data <- unlist(train_data, use.names = FALSE)		# call unlist function on raw_data sets to make indexing easier
-	test_data  <- unlist(test_data, use.names = FALSE)
+	features <- get_features_and_indices()
 	
-	train_data <- as.character(train_data)						# convert lists to character lists
-	test_data  <- as.character(test_data)
+	train_data <- get_train_and_test_data("train", as.integer(features[2, ]))
+	test_data  <- get_train_and_test_data("test", as.integer(features[2, ]))
+	combined_data <- rbind(train_data, test_data)
+	colnames(combined_data) <- c(features[1, ])
 	
-	for (i in 1:length(raw_train_data))
+	library(dplyr)
+	tidy_data <- tbl_df(combined_data)
+	tidy_data <- mutate(tidy_data, activityLabels = activity_column)
+}
+
+get_activity_column <- function(typeof_data)
+{
+	if (typeof_data == "train")
 	{
-		if (raw_train[i] == "1")
+		file_name <- "./train/y_train.txt"
+	}
+	else
+	{
+		file_name <- "./test/y_test.txt"
+	}
+	
+	raw_data <- read.table(file_name)
+	raw_data <- as.character(unlist(raw_data))
+	
+	for (i in 1:length (raw_data))
+	{
+		if (raw_data[i] == "1")
 		{
-			raw_train[i] <- "WALKING"
+			raw_data[i] <- "WALKING"
 		}
-		else if (raw_train[i] == "2")
+		else if (raw_data[i] == "2")
 		{
-			raw_train[i] <- "WALKING_UPSTAIRS"
+			raw_data[i] <- "WALKING_UPSTAIRS"
 		}
-		else if (raw_train[i] == "3")
+		else if (raw_data[i] == "3")
 		{
-			raw_train[i] <- "WALKING_DOWNSTAIRS"
+			raw_data[i] <- "WALKING_DOWNSTAIRS"
 		}
-		else if (raw_train[i] == "4")
+		else if (raw_data[i] == "4")
 		{
-			raw_train[i] <- "SITTING"
+			raw_data[i] <- "SITTING"
 		}
-		else if (raw_train[i] == "5")
+		else if (raw_data[i] == "5")
 		{
-			raw_train[i] <- "STANDING"
+			raw_data[i] <- "STANDING"
 		}
 		else
 		{
-			raw_train[i] <- "LAYING"
+			raw_data[i] <- "LAYING"
 		}
 	}
-	return(combine(train_data, test_data))
+	
+	return(raw_data)
 }
 
 get_features_and_indices <- function()
@@ -97,6 +121,11 @@ get_train_and_test_data <- function(typeof_data, indices) #indices is a vector o
 	}
 	return(condensed_data)
 }
+
+
+
+
+
 
 
 
