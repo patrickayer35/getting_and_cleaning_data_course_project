@@ -251,12 +251,12 @@ get_train_and_test_data <- function(typeof_data, indices) #indices is a vector o
 create_q5_dataset <- function(tidy_dataset)
 {
 	library(dplyr)
-	means_walking <- create_mean_row("WALKING", tidy_dataset)
+	means_walking    <- create_mean_row("WALKING", tidy_dataset)
 	means_walking_up <- create_mean_row("WALKING_UPSTAIRS", tidy_dataset)
 	means_walking_dn <- create_mean_row("WALKING_DOWNSTAIRS", tidy_dataset)
-	means_sitting <- create_mean_row("SITTING", tidy_dataset)
-	means_standing <- create_mean_row("STANDING", tidy_dataset)
-	means_laying <- create_mean_row("LAYING", tidy_dataset)
+	means_sitting    <- create_mean_row("SITTING", tidy_dataset)
+	means_standing   <- create_mean_row("STANDING", tidy_dataset)
+	means_laying 	 <- create_mean_row("LAYING", tidy_dataset)
 	
 	return(rbind(means_walking, means_walking_up, means_walking_dn, means_sitting, means_standing, means_laying))
 }

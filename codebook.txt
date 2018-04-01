@@ -1,0 +1,49 @@
+CODEBOOK
+========
+
+for the data stored in the files "y_train.txt" and "y_test.txt", each number from 1 through 6 pertains to a different activity:
+1 = walking, denoted as "WALKING"
+2 = walking upstairs, denoted as "WALKING_UPSTAIRS"
+3 = walking downstairs, denoted as "WALKING DOWNSTAIRS"
+4 = sitting, denoted as "SITTING"
+5 = standing, denoted as "STANDING"
+6 = laying, denoted as "LAYING"
+
+These are the six possible values in the activityLabels column for the finished tidy dataset
+
+========
+
+All the variable names for the tidy dataset (excluding the activityLables variable) are constructed using a particular set of tokens, as defined below:
+
+************************************************************************
+/// all variable names will begin with either "meanOf" or "stDevOf"    *
+meanOf -- denotes mean of measurement								   *
+stDevOf -- denotes standard deviation of measurement				   *
+************************************************************************
+
+Time -- denotes measurement of time
+Frequency -- denotes measurement of frequency
+
+Body -- measurement of a rigid body
+BodyBody -- measurement of two rigid bodies
+Gravity -- measurement under the force of gravity
+
+Accel -- denotes measurement produced by accelerometer
+Gyro -- denotes measurement produced by gyroscope
+
+Jerk -- denotes that test subject was a jerk
+Magnitude -- measurement of the magnitude (vector magnitude from X, Y, and Z components)
+
+InX -- measurement in x direction
+InY -- measurement in y direction
+InZ -- measurement in z direction
+
+===============
+EXAMPLES:
+
+timeBodyGyroJerkInX -- time measurement of the body's acceleration jerk velocity in the x direction via gyroscope
+
+timeGravityAccelMag -- time measurement of the magnitude of gravity's acceleration via accelerometer
+
+frequencyGravityGyroInZ -- frequency measurement of gravity's acceleration in the z direction via gyroscope
+
