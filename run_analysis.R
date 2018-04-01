@@ -259,15 +259,18 @@ create_q5_dataset <- function(tidy_dataset)
 	means_standing   <- create_mean_row("STANDING", tidy_dataset)
 	means_laying 	 <- create_mean_row("LAYING", tidy_dataset)
 	
-	return(rbind(means_walking, means_walking_up, means_walking_dn, means_sitting, means_standing, means_laying))
+	just_means <- tbl_df(rbind(means_walking, means_walking_up, means_walking_dn, means_sitting, means_standing, means_laying))
+	return(mutate(just_means, activityLables = c("WALKING", "WALKING_UPSTAIRS", "WALKING_DOWNSTAIRS", "SITTING", "STANDING", "LAYING")))
+	
+	#return(tbl_df(rbind(means_walking, means_walking_up, means_walking_dn, means_sitting, means_standing, means_laying)))
 }
 
 create_mean_row <- function(activity, dataset)
 {
 	filtered_ds <- filter(dataset, activityLabels == activity)
 	means <- apply(filtered_ds[1:66], 2, mean)
-	means$activityLabel <- activity
-	return(means)
+	#means$activityLabel <- activity
+	return(unlist(means))
 }
 
 
