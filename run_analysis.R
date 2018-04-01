@@ -1,5 +1,6 @@
 build_dataset <- function()
 {
+	library(dplyr)
 	# convert data in y_train and y_test text files into activity labels
 	# merge data into one column defined as activity_column
 	print("getting activity data from y_train.txt and y_test.txt...")
@@ -21,7 +22,7 @@ build_dataset <- function()
 	colnames(combined_data) <- c(renamed_features)
 	
 	print("tidying data...")
-	library(dplyr)
+	#library(dplyr)
 	tidy_data <- tbl_df(combined_data)
 	tidy_data <- mutate(tidy_data, activityLabels = activity_column)
 	
